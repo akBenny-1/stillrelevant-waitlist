@@ -5,17 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Still Relevant — Join the Waitlist</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --cream:   #FDFAF5;
-      --ink:     #1A1A1A;
-      --rust:    #C4603A;
-      --rust-lt: #E07A52;
-      --muted:   #888;
-      --subtle:  #bbb;
+      --cream:        #FDFAF5;
+      --ink:          #1A1A1A;
+      --rust:         #C4603A;
+      --rust-lt:      #D97B55;
+      --warm-muted:   #7A7062;
+      --warm-subtle:  #B8AFA2;
+      --warm-rule:    #E8E0D5;
+      --sage:         #8DAA7B;
+      --sage-mid:     #6B9060;
+      --sage-dark:    #4E7245;
     }
 
     html, body {
@@ -32,94 +36,128 @@
       overflow-x: hidden;
     }
 
-    /* ── Illustration ─────────────────────── */
+    /* ── Page Load Fade-in ────────────────── */
+    @keyframes pageFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
     .illustration-wrap {
       width: 100%;
       max-width: 1080px;
       overflow: hidden;
+      animation: pageFadeIn 0.9s ease-out both;
     }
 
+    .content {
+      animation: pageFadeIn 0.9s ease-out 0.35s both;
+    }
+
+    .inside-section {
+      animation: pageFadeIn 0.9s ease-out 0.55s both;
+    }
+
+    /* ── Illustration ─────────────────────── */
     .illustration-wrap svg {
       width: 100%;
       height: auto;
       display: block;
     }
 
-    /* Safari-safe: animate opacity + scale via transform */
+    /* Constellation pulse — φ-staggered breathing rhythm */
+    @keyframes breathe {
+      0%, 100% { opacity: 0.45; r: 3.5px; }
+      50%       { opacity: 1;    r: 5.5px; }
+    }
+    @keyframes breatheLg {
+      0%, 100% { opacity: 0.5;  r: 4px;   }
+      50%       { opacity: 1;   r: 6.5px; }
+    }
+    @keyframes breatheSm {
+      0%, 100% { opacity: 0.2;  r: 2.5px; }
+      50%       { opacity: 0.7; r: 3.8px; }
+    }
+
+    /* NOTE: animating SVG `r` via CSS isn't universally supported.
+       We animate via transform + opacity instead for max compat. */
     @keyframes nodePulse {
-      0%, 100% { opacity: 0.5;  transform: scale(1);   }
-      50%       { opacity: 1;   transform: scale(1.6); }
+      0%, 100% { opacity: 0.45; transform: scale(1);    }
+      50%       { opacity: 1;   transform: scale(1.55); }
+    }
+    @keyframes nodePulseLg {
+      0%, 100% { opacity: 0.5;  transform: scale(1);    }
+      50%       { opacity: 1;   transform: scale(1.65); }
     }
     @keyframes nodePulseSm {
-      0%, 100% { opacity: 0.25; transform: scale(1);   }
-      50%       { opacity: 0.6; transform: scale(1.4); }
+      0%, 100% { opacity: 0.2;  transform: scale(1);    }
+      50%       { opacity: 0.7; transform: scale(1.5);  }
     }
 
-    .pulse-node {
+    .pulse-node, .pulse-node-lg, .pulse-node-sm {
       transform-box: fill-box;
       transform-origin: center;
-      animation: nodePulse 3s ease-in-out infinite;
     }
-    .pulse-node-sm {
-      transform-box: fill-box;
-      transform-origin: center;
-      animation: nodePulseSm 4s ease-in-out infinite;
-    }
+    .pulse-node    { animation: nodePulse   3.8s ease-in-out infinite; }
+    .pulse-node-lg { animation: nodePulseLg 4.4s ease-in-out infinite; }
+    .pulse-node-sm { animation: nodePulseSm 5.1s ease-in-out infinite; }
 
-    .pulse-node:nth-child(1) { animation-delay: 0s;   }
-    .pulse-node:nth-child(2) { animation-delay: 0.6s; }
-    .pulse-node:nth-child(3) { animation-delay: 1.2s; }
-    .pulse-node:nth-child(4) { animation-delay: 0.3s; }
-    .pulse-node:nth-child(5) { animation-delay: 1.8s; }
-    .pulse-node:nth-child(6) { animation-delay: 0.9s; }
+    /* Golden ratio stagger (φ = 0.618s) */
+    .pulse-node:nth-child(1)    { animation-delay: 0s;     }
+    .pulse-node:nth-child(2)    { animation-delay: 0.618s; }
+    .pulse-node:nth-child(3)    { animation-delay: 1.236s; }
+    .pulse-node:nth-child(4)    { animation-delay: 1.854s; }
+    .pulse-node:nth-child(5)    { animation-delay: 0.309s; }
+    .pulse-node:nth-child(6)    { animation-delay: 0.927s; }
 
-    .pulse-node-sm:nth-child(1) { animation-delay: 0.2s; }
-    .pulse-node-sm:nth-child(2) { animation-delay: 0.8s; }
-    .pulse-node-sm:nth-child(3) { animation-delay: 1.4s; }
-    .pulse-node-sm:nth-child(4) { animation-delay: 0.5s; }
-    .pulse-node-sm:nth-child(5) { animation-delay: 2.0s; }
-    .pulse-node-sm:nth-child(6) { animation-delay: 1.1s; }
-    .pulse-node-sm:nth-child(7) { animation-delay: 0.3s; }
-    .pulse-node-sm:nth-child(8) { animation-delay: 1.6s; }
+    .pulse-node-sm:nth-child(1) { animation-delay: 0.2s;   }
+    .pulse-node-sm:nth-child(2) { animation-delay: 0.818s; }
+    .pulse-node-sm:nth-child(3) { animation-delay: 1.436s; }
+    .pulse-node-sm:nth-child(4) { animation-delay: 2.054s; }
+    .pulse-node-sm:nth-child(5) { animation-delay: 0.509s; }
+    .pulse-node-sm:nth-child(6) { animation-delay: 1.127s; }
+    .pulse-node-sm:nth-child(7) { animation-delay: 1.745s; }
+    .pulse-node-sm:nth-child(8) { animation-delay: 0.363s; }
 
-    /* Flow line draw-in */
+    /* Flow line draw-in — opacity fades in alongside the stroke draw */
     @keyframes drawLine {
-      from { stroke-dashoffset: 200; opacity: 0; }
-      to   { stroke-dashoffset: 0;   opacity: 1; }
+      0%   { stroke-dashoffset: 220; opacity: 0;   }
+      15%  { opacity: 0.6; }
+      100% { stroke-dashoffset: 0;   opacity: 0.85; }
     }
     .flow-line {
-      stroke-dasharray: 200;
-      stroke-dashoffset: 200;
-      animation: drawLine 2.5s ease-out forwards;
+      stroke-dasharray: 220;
+      stroke-dashoffset: 220;
+      animation: drawLine 3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     }
-    .flow-line:nth-child(1) { animation-delay: 0.2s; }
-    .flow-line:nth-child(2) { animation-delay: 0.6s; }
-    .flow-line:nth-child(3) { animation-delay: 1.0s; }
+    .flow-line:nth-child(1) { animation-delay: 0.4s; }
+    .flow-line:nth-child(2) { animation-delay: 0.85s; }
+    .flow-line:nth-child(3) { animation-delay: 1.3s;  }
 
     /* ── Content ──────────────────────────── */
     .content {
       width: 100%;
-      max-width: 580px;
-      padding: 8px 28px 56px;
+      max-width: 600px;
+      padding: 0 28px 56px;
       text-align: center;
     }
 
     .eyebrow {
       font-size: 10px;
       font-weight: 500;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--rust);
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
 
     h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 6vw, 3.4rem);
-      font-weight: 900;
-      line-height: 1.1;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 6.5vw, 3.8rem);
+      font-weight: 700;
+      line-height: 1.08;
       color: var(--ink);
-      margin-bottom: 20px;
+      margin-bottom: 24px;
+      letter-spacing: -0.01em;
     }
 
     h1 em {
@@ -128,18 +166,19 @@
     }
 
     .subhead {
-      font-size: clamp(0.9rem, 2.5vw, 1rem);
-      font-weight: 500;
-      line-height: 1.6;
+      font-size: clamp(0.88rem, 2.4vw, 1rem);
+      font-weight: 400;
+      line-height: 1.7;
       color: var(--ink);
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .body-copy {
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.8;
-      margin-bottom: 36px;
+      font-size: 0.83rem;
+      font-weight: 300;
+      color: var(--warm-muted);
+      line-height: 1.85;
+      margin-bottom: 40px;
     }
 
     /* ── Form ─────────────────────────────── */
@@ -155,9 +194,9 @@
       width: 100%;
       max-width: 400px;
       border: 1.5px solid var(--ink);
-      border-radius: 3px;
+      border-radius: 2px;
       overflow: hidden;
-      transition: border-color 0.2s;
+      transition: border-color 0.25s ease;
     }
 
     .email-row:focus-within {
@@ -166,9 +205,10 @@
 
     input[type="email"] {
       flex: 1;
-      padding: 13px 15px;
-      font-size: 0.85rem;
+      padding: 14px 16px;
+      font-size: 0.83rem;
       font-family: 'Inter', sans-serif;
+      font-weight: 300;
       border: none;
       outline: none;
       background: var(--cream);
@@ -176,85 +216,92 @@
       min-width: 0;
     }
 
-    input[type="email"]::placeholder { color: #aaa; }
+    input[type="email"]::placeholder { color: var(--warm-subtle); }
 
     button[type="submit"] {
-      padding: 13px 17px;
+      padding: 14px 18px;
       background: var(--ink);
       color: var(--cream);
       font-family: 'Inter', sans-serif;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 500;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       border: none;
       cursor: pointer;
       white-space: nowrap;
-      transition: background 0.2s;
+      transition: background 0.25s ease;
     }
 
     button[type="submit"]:hover { background: var(--rust); }
 
     .form-note {
-      font-size: 0.7rem;
-      color: var(--subtle);
+      font-size: 0.68rem;
+      font-weight: 300;
+      color: var(--warm-subtle);
+      letter-spacing: 0.03em;
     }
 
     .success-msg {
       display: none;
-      font-family: 'Playfair Display', serif;
+      font-family: 'Cormorant Garamond', serif;
       font-style: italic;
-      font-size: 1.1rem;
+      font-weight: 600;
+      font-size: 1.25rem;
       color: var(--rust);
-      padding: 16px 0;
+      padding: 20px 0;
+      line-height: 1.5;
     }
 
     .social-proof {
-      margin-top: 28px;
-      font-size: 0.75rem;
-      color: var(--subtle);
+      margin-top: 30px;
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: var(--warm-subtle);
       font-style: italic;
+      letter-spacing: 0.02em;
     }
 
     /* ── What's inside ────────────────────── */
     .inside-section {
       width: 100%;
       max-width: 520px;
-      padding: 0 28px 72px;
+      padding: 0 28px 80px;
       text-align: center;
     }
 
     .divider {
-      width: 28px;
-      height: 1.5px;
-      background: var(--rust);
-      margin: 0 auto 28px;
-      opacity: 0.5;
+      width: 1px;
+      height: 40px;
+      background: var(--warm-rule);
+      margin: 0 auto 32px;
     }
 
     .inside-label {
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 500;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 18px;
+      color: var(--warm-muted);
+      margin-bottom: 22px;
     }
 
     .inside-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
       text-align: left;
     }
 
     .inside-list li {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
-      font-size: 0.85rem;
-      line-height: 1.55;
-      color: #555;
+      gap: 14px;
+      font-size: 0.84rem;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--warm-muted);
     }
 
     .inside-list li::before {
@@ -263,24 +310,33 @@
       font-weight: 300;
       flex-shrink: 0;
       margin-top: 1px;
+      opacity: 0.7;
+    }
+
+    .inside-list li em {
+      font-style: italic;
+      color: var(--ink);
     }
 
     /* ── Footer ───────────────────────────── */
     footer {
       margin-top: auto;
-      padding: 24px;
-      font-size: 0.7rem;
-      color: var(--subtle);
+      padding: 28px;
+      font-size: 0.68rem;
+      font-weight: 300;
+      color: var(--warm-subtle);
       text-align: center;
+      letter-spacing: 0.04em;
     }
 
-    footer a { color: var(--subtle); text-decoration: none; }
+    footer a { color: var(--warm-subtle); text-decoration: none; }
     footer a:hover { color: var(--rust); }
 
     /* ── Mobile ───────────────────────────── */
     @media (max-width: 480px) {
       .email-row { max-width: 100%; }
-      button[type="submit"] { padding: 13px 13px; font-size: 0.76rem; }
+      button[type="submit"] { padding: 14px 14px; font-size: 0.74rem; }
+      h1 { line-height: 1.1; }
     }
   </style>
 </head>
@@ -289,70 +345,73 @@
   <!-- ── Illustration: The Edge of Everything ── -->
   <div class="illustration-wrap">
     <svg viewBox="0 0 960 320" xmlns="http://www.w3.org/2000/svg" fill="none"
-         role="img" aria-label="A lone silhouette stands at the horizon where rolling hills dissolve into a constellation of data.">
+         role="img" aria-label="A lone silhouette stands at the horizon where rolling hills dissolve into a constellation of data nodes.">
 
       <!-- Sky -->
       <rect width="960" height="320" fill="#FDFAF5"/>
 
-      <!-- Clouds -->
-      <ellipse cx="110" cy="55" rx="82" ry="28" fill="#F0E4CC" opacity="0.65"/>
-      <ellipse cx="155" cy="44" rx="58" ry="20" fill="#F0E4CC" opacity="0.75"/>
-      <ellipse cx="68"  cy="64" rx="44" ry="17" fill="#F0E4CC" opacity="0.55"/>
-      <ellipse cx="800" cy="42" rx="92" ry="30" fill="#F0E4CC" opacity="0.65"/>
-      <ellipse cx="848" cy="31" rx="62" ry="22" fill="#F0E4CC" opacity="0.75"/>
-      <ellipse cx="745" cy="53" rx="50" ry="19" fill="#F0E4CC" opacity="0.55"/>
-      <ellipse cx="470" cy="28" rx="72" ry="21" fill="#F0E4CC" opacity="0.45"/>
+      <!-- Clouds — warmer, more visible -->
+      <ellipse cx="110" cy="55" rx="82" ry="28" fill="#EDD9BC" opacity="0.55"/>
+      <ellipse cx="155" cy="44" rx="58" ry="20" fill="#EDD9BC" opacity="0.65"/>
+      <ellipse cx="68"  cy="64" rx="44" ry="17" fill="#EDD9BC" opacity="0.45"/>
+      <ellipse cx="800" cy="42" rx="92" ry="30" fill="#EDD9BC" opacity="0.55"/>
+      <ellipse cx="848" cy="31" rx="62" ry="22" fill="#EDD9BC" opacity="0.65"/>
+      <ellipse cx="745" cy="53" rx="50" ry="19" fill="#EDD9BC" opacity="0.45"/>
+      <ellipse cx="470" cy="28" rx="72" ry="21" fill="#EDD9BC" opacity="0.35"/>
 
-      <!-- Hills (organic, left) -->
+      <!-- Hills — fixed: visible sage greens, strong opacity -->
+      <!-- Far hill (lightest) -->
       <path d="M0,255 Q70,195 170,222 Q275,252 365,228 Q435,208 490,238 L490,320 L0,320 Z"
-            fill="#C9DEB0" opacity="0.45"/>
+            fill="#BDD4A8" opacity="0.82"/>
+      <!-- Mid hill -->
       <path d="M0,278 Q95,242 205,262 Q315,282 395,258 Q450,242 490,260 L490,320 L0,320 Z"
-            fill="#A2C48A" opacity="0.55"/>
+            fill="#96BC80" opacity="0.90"/>
+      <!-- Foreground hill (darkest) -->
       <path d="M0,300 Q180,285 380,295 L490,295 L490,320 L0,320 Z"
-            fill="#82AF6E" opacity="0.38"/>
+            fill="#72A05E" opacity="0.88"/>
 
-      <!-- Hill ink outlines -->
+      <!-- Hill ink outlines — visible but gentle -->
       <path d="M0,278 Q95,242 205,262 Q315,282 395,258 Q450,242 490,260"
-            stroke="#1A1A1A" stroke-width="1.1" opacity="0.13" fill="none"/>
+            stroke="#1A1A1A" stroke-width="1.2" opacity="0.28" fill="none"/>
       <path d="M0,255 Q70,195 170,222 Q275,252 365,228 Q435,208 490,238"
-            stroke="#1A1A1A" stroke-width="0.9" opacity="0.10" fill="none"/>
+            stroke="#1A1A1A" stroke-width="1.0" opacity="0.20" fill="none"/>
 
-      <!-- Horizon dashed line -->
+      <!-- Horizon dashed line — more visible -->
       <line x1="0" y1="238" x2="960" y2="238"
-            stroke="#1A1A1A" stroke-width="0.7" opacity="0.07" stroke-dasharray="4,8"/>
+            stroke="#1A1A1A" stroke-width="0.8" opacity="0.12" stroke-dasharray="4,8"/>
 
-      <!-- Geometric grid (right) -->
-      <line x1="560" y1="238" x2="960" y2="238" stroke="#C4603A" stroke-width="0.5" opacity="0.13"/>
-      <line x1="590" y1="252" x2="960" y2="252" stroke="#C4603A" stroke-width="0.5" opacity="0.10"/>
-      <line x1="615" y1="265" x2="960" y2="265" stroke="#C4603A" stroke-width="0.5" opacity="0.08"/>
-      <line x1="640" y1="278" x2="960" y2="278" stroke="#C4603A" stroke-width="0.5" opacity="0.07"/>
-      <line x1="650" y1="238" x2="650" y2="290" stroke="#C4603A" stroke-width="0.5" opacity="0.10"/>
-      <line x1="730" y1="238" x2="730" y2="295" stroke="#C4603A" stroke-width="0.5" opacity="0.09"/>
-      <line x1="820" y1="238" x2="820" y2="300" stroke="#C4603A" stroke-width="0.5" opacity="0.08"/>
-      <line x1="900" y1="238" x2="900" y2="305" stroke="#C4603A" stroke-width="0.5" opacity="0.07"/>
+      <!-- Geometric grid (right side) — bumped opacity -->
+      <line x1="560" y1="238" x2="960" y2="238" stroke="#C4603A" stroke-width="0.6" opacity="0.22"/>
+      <line x1="590" y1="252" x2="960" y2="252" stroke="#C4603A" stroke-width="0.6" opacity="0.18"/>
+      <line x1="615" y1="265" x2="960" y2="265" stroke="#C4603A" stroke-width="0.5" opacity="0.15"/>
+      <line x1="640" y1="278" x2="960" y2="278" stroke="#C4603A" stroke-width="0.5" opacity="0.12"/>
+      <line x1="650" y1="238" x2="650" y2="295" stroke="#C4603A" stroke-width="0.5" opacity="0.18"/>
+      <line x1="730" y1="238" x2="730" y2="300" stroke="#C4603A" stroke-width="0.5" opacity="0.16"/>
+      <line x1="820" y1="238" x2="820" y2="305" stroke="#C4603A" stroke-width="0.5" opacity="0.14"/>
+      <line x1="900" y1="238" x2="900" y2="310" stroke="#C4603A" stroke-width="0.5" opacity="0.12"/>
 
-      <!-- Flow lines -->
+      <!-- Flow lines — draw-in animation -->
       <g>
         <path class="flow-line" d="M502,225 Q545,221 592,228 Q645,235 688,228"
-              stroke="#C4603A" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+              stroke="#C4603A" stroke-width="1.1" fill="none" stroke-linecap="round"/>
         <path class="flow-line" d="M504,233 Q550,230 600,237 Q658,244 705,238"
-              stroke="#C4603A" stroke-width="0.7" fill="none" stroke-linecap="round"/>
+              stroke="#C4603A" stroke-width="0.8" fill="none" stroke-linecap="round"/>
         <path class="flow-line" d="M500,218 Q540,214 578,217 Q618,220 652,215"
-              stroke="#C4603A" stroke-width="0.6" fill="none" stroke-linecap="round"/>
+              stroke="#C4603A" stroke-width="0.7" fill="none" stroke-linecap="round"/>
       </g>
 
-      <!-- Constellation nodes — primary (pulse) -->
+      <!-- Constellation nodes — primary (larger, φ-pulsed) -->
       <g fill="#C4603A">
-        <circle class="pulse-node" cx="690" cy="192" r="3.5"/>
-        <circle class="pulse-node" cx="748" cy="168" r="4"/>
-        <circle class="pulse-node" cx="800" cy="185" r="3.5"/>
-        <circle class="pulse-node" cx="855" cy="162" r="3.5"/>
-        <circle class="pulse-node" cx="912" cy="178" r="3.5"/>
-        <circle class="pulse-node" cx="760" cy="215" r="3.5"/>
+        <circle class="pulse-node" cx="690" cy="192" r="3.8"/>
+        <circle class="pulse-node" cx="748" cy="168" r="4.2"/>
+        <circle class="pulse-node" cx="800" cy="185" r="3.8"/>
+        <circle class="pulse-node" cx="855" cy="162" r="3.8"/>
+        <circle class="pulse-node" cx="912" cy="178" r="3.8"/>
+        <circle class="pulse-node" cx="760" cy="215" r="3.8"/>
       </g>
 
-      <!-- Constellation nodes — secondary (softer) -->
-      <g fill="#C4603A" opacity="0.5">
+      <!-- Constellation nodes — secondary (smaller, slower) -->
+      <g fill="#C4603A">
         <circle class="pulse-node-sm" cx="665" cy="172" r="2.5"/>
         <circle class="pulse-node-sm" cx="722" cy="148" r="2.5"/>
         <circle class="pulse-node-sm" cx="778" cy="205" r="2.5"/>
@@ -363,8 +422,8 @@
         <circle class="pulse-node-sm" cx="840" cy="148" r="2.5"/>
       </g>
 
-      <!-- Constellation lines -->
-      <g stroke="#C4603A" stroke-width="0.7" opacity="0.22" fill="none">
+      <!-- Constellation lines — bumped opacity, more visible -->
+      <g stroke="#C4603A" stroke-width="0.8" opacity="0.30" fill="none">
         <line x1="665" y1="172" x2="690" y2="192"/>
         <line x1="690" y1="192" x2="722" y2="148"/>
         <line x1="722" y1="148" x2="748" y2="168"/>
@@ -383,29 +442,35 @@
         <line x1="828" y1="198" x2="880" y2="182"/>
       </g>
 
-      <!-- Silhouette figure -->
+      <!-- Silhouette figure — at the threshold, looking right toward the constellation -->
       <g transform="translate(480, 195)">
-        <circle cx="0" cy="28" r="40" stroke="#C4603A" stroke-width="0.8"
-                opacity="0.14" stroke-dasharray="2,6"/>
-        <circle cx="0" cy="28" r="58" stroke="#C4603A" stroke-width="0.6"
-                opacity="0.08" stroke-dasharray="1,8"/>
-        <ellipse cx="2" cy="80" rx="10" ry="3" fill="#1A1A1A" opacity="0.12"/>
+        <!-- Atmospheric halo rings -->
+        <circle cx="0" cy="28" r="40" stroke="#C4603A" stroke-width="0.9"
+                opacity="0.18" stroke-dasharray="2,6"/>
+        <circle cx="0" cy="28" r="60" stroke="#C4603A" stroke-width="0.6"
+                opacity="0.10" stroke-dasharray="1,8"/>
+        <!-- Ground shadow — grounding the figure -->
+        <ellipse cx="2" cy="80" rx="11" ry="3.5" fill="#1A1A1A" opacity="0.22"/>
+        <!-- Legs -->
         <path d="M-4,56 L-7,80"  stroke="#1A1A1A" stroke-width="5.5" stroke-linecap="round"/>
         <path d="M4,56  L8,80"   stroke="#1A1A1A" stroke-width="5.5" stroke-linecap="round"/>
+        <!-- Torso -->
         <rect x="-7" y="22" width="14" height="36" rx="3" fill="#1A1A1A"/>
-        <path d="M-7,32 Q-22,36 -30,34" stroke="#1A1A1A" stroke-width="5.5" stroke-linecap="round"/>
-        <path d="M7,30 Q20,22 30,16"    stroke="#1A1A1A" stroke-width="5.5" stroke-linecap="round"/>
+        <!-- Arms: left hangs, right reaches slightly forward -->
+        <path d="M-7,32 Q-22,38 -28,36"  stroke="#1A1A1A" stroke-width="5" stroke-linecap="round"/>
+        <path d="M7,30  Q22,22  32,17"   stroke="#1A1A1A" stroke-width="5" stroke-linecap="round"/>
+        <!-- Head -->
         <circle cx="0" cy="12" r="10" fill="#1A1A1A"/>
       </g>
 
-      <!-- Bottom fade -->
+      <!-- Bottom fade — starts lower so hills remain visible -->
       <defs>
         <linearGradient id="fadeOut" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%"   stop-color="#FDFAF5" stop-opacity="0"/>
           <stop offset="100%" stop-color="#FDFAF5" stop-opacity="1"/>
         </linearGradient>
       </defs>
-      <rect x="0" y="268" width="960" height="52" fill="url(#fadeOut)"/>
+      <rect x="0" y="288" width="960" height="32" fill="url(#fadeOut)"/>
 
     </svg>
   </div>
@@ -413,7 +478,7 @@
   <!-- ── Main Content ── -->
   <main class="content">
 
-    <p class="eyebrow">Coming soon · Free to join</p>
+    <p class="eyebrow">Coming soon &nbsp;·&nbsp; Free to join</p>
 
     <h1>
       AI won't replace you.<br>
@@ -454,9 +519,9 @@
     <p class="inside-label">What you'll get</p>
     <ul class="inside-list">
       <li>A practical guide to understanding where AI actually helps vs. hype — and how to use it</li>
-      <li>The human skills that become <em>more</em> valuable as AI takes over the rest</li>
-      <li>A ready-to-use toolkit: prompts, frameworks, and workflows for your actual job</li>
-      <li>Confidence. Not because you became a tech expert — because you know your edge</li>
+      <li>The human skills that become <em>more valuable</em> as AI handles the rest</li>
+      <li>A ready-to-use toolkit: prompts, frameworks, and workflows built for your actual job</li>
+      <li>Confidence — not because you became a tech person, but because you know your edge</li>
     </ul>
   </section>
 
@@ -473,7 +538,7 @@
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       if (!emailIn.value || !emailIn.validity.valid) return;
-      // TODO: wire to ConvertKit / Mailchimp API
+      // TODO: wire to ConvertKit / Mailchimp
       form.style.display    = 'none';
       success.style.display = 'block';
     });
