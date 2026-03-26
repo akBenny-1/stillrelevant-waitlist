@@ -93,9 +93,9 @@
 
     h1 {
       font-family: 'Instrument Serif', serif;
-      font-size: clamp(2.2rem, 6.5vw, 3.8rem);
+      font-size: clamp(2rem, 4vw, 2.8rem);
       font-weight: 400;
-      line-height: 1.1;
+      line-height: 1.15;
       color: var(--ink);
       margin-bottom: 22px;
     }
@@ -103,6 +103,8 @@
     h1 span { display: block; }
 
     h1 em {
+      display: block;
+      white-space: nowrap;
       font-style: italic;
       color: var(--rust);
     }
@@ -249,16 +251,72 @@
     .inside-list li em {
       font-style: italic;
       color: var(--ink);
+      padding: 0 1px;
+    }
+
+    /* ── Bottom section ── */
+    .bottom-section {
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      padding: 72px 28px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(to bottom, var(--cream) 0%, #F5EDE0 60%, #EDE0CF 100%);
+    }
+
+    .bottom-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 15% 80%, rgba(196,96,58,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 35% at 85% 20%, rgba(196,96,58,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .bottom-rule {
+      width: 40px;
+      height: 1px;
+      background: var(--rust);
+      opacity: 0.4;
+      margin: 0 auto 32px;
+    }
+
+    .bottom-quote {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: clamp(1.3rem, 3.5vw, 1.9rem);
+      font-weight: 400;
+      line-height: 1.4;
+      color: var(--ink);
+      max-width: 480px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .bottom-attr {
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--rust);
+      opacity: 0.75;
+      position: relative;
+      z-index: 1;
     }
 
     /* ── Footer ── */
     footer {
-      margin-top: auto;
-      padding: 28px;
+      padding: 24px 28px;
       font-size: 0.68rem;
       font-weight: 300;
       color: var(--subtle);
       text-align: center;
+      background: #EDE0CF;
     }
     footer a { color: var(--subtle); text-decoration: none; }
     footer a:hover { color: var(--rust); }
@@ -500,12 +558,21 @@
     <div class="divider"></div>
     <p class="inside-label">What you'll get</p>
     <ul class="inside-list">
-      <li>Where AI actually helps — and where the hype ends</li>
-      <li>The human skills that become <em>more valuable</em> as AI takes over the rest</li>
+      <li>Where AI actually helps and where the hype ends</li>
+      <li>The human skills that become <em>more&nbsp;valuable</em> as AI takes over the rest</li>
       <li>Prompts, frameworks, and workflows built for your actual job</li>
-      <li>How to know your edge — and make sure others do too</li>
+      <li>How to know your edge and make sure others do too</li>
     </ul>
   </section>
+
+  <!-- ── Bottom visual section ── -->
+  <div class="bottom-section">
+    <div class="bottom-rule"></div>
+    <p class="bottom-quote">
+      The goal isn't to keep up with AI.<br>It's to be someone AI can't replace.
+    </p>
+    <p class="bottom-attr">Still Relevant · Coming 2026</p>
+  </div>
 
   <footer>
     © 2026 Still Relevant &nbsp;·&nbsp;
