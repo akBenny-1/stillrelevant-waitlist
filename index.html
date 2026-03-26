@@ -5,29 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Still Relevant — Join the Waitlist</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --cream:        #FDFAF5;
-      --ink:          #1A1A1A;
-      --rust:         #C4603A;
-      --rust-lt:      #D97B55;
-      --warm-muted:   #7A7062;
-      --warm-subtle:  #B8AFA2;
-      --warm-rule:    #E8E0D5;
-      --sage:         #8DAA7B;
-      --sage-mid:     #6B9060;
-      --sage-dark:    #4E7245;
-    }
-
-    html, body {
-      height: 100%;
+      --cream:   #FDFAF5;
+      --ink:     #1A1A1A;
+      --rust:    #C4603A;
+      --muted:   #7A7062;
+      --subtle:  #B8AFA2;
+      --rule:    #E8E0D5;
     }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       background: var(--cream);
       color: var(--ink);
       display: flex;
@@ -36,108 +28,47 @@
       overflow-x: hidden;
     }
 
-    /* ── Page Load Fade-in ────────────────── */
-    @keyframes pageFadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+    /* ── Page fade in ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
       to   { opacity: 1; transform: translateY(0); }
     }
+    .illustration-wrap { animation: fadeUp 0.8s ease-out both; }
+    .content           { animation: fadeUp 0.8s ease-out 0.3s both; }
+    .inside-section    { animation: fadeUp 0.8s ease-out 0.5s both; }
 
+    /* ── Illustration ── */
     .illustration-wrap {
       width: 100%;
       max-width: 1080px;
       overflow: hidden;
-      animation: pageFadeIn 0.9s ease-out both;
     }
-
-    .content {
-      animation: pageFadeIn 0.9s ease-out 0.35s both;
-    }
-
-    .inside-section {
-      animation: pageFadeIn 0.9s ease-out 0.55s both;
-    }
-
-    /* ── Illustration ─────────────────────── */
     .illustration-wrap svg {
       width: 100%;
       height: auto;
       display: block;
     }
 
-    /* Constellation pulse — φ-staggered breathing rhythm */
-    @keyframes breathe {
-      0%, 100% { opacity: 0.45; r: 3.5px; }
-      50%       { opacity: 1;    r: 5.5px; }
-    }
-    @keyframes breatheLg {
-      0%, 100% { opacity: 0.5;  r: 4px;   }
-      50%       { opacity: 1;   r: 6.5px; }
-    }
-    @keyframes breatheSm {
-      0%, 100% { opacity: 0.2;  r: 2.5px; }
-      50%       { opacity: 0.7; r: 3.8px; }
-    }
-
-    /* NOTE: animating SVG `r` via CSS isn't universally supported.
-       We animate via transform + opacity instead for max compat. */
-    @keyframes nodePulse {
-      0%, 100% { opacity: 0.45; transform: scale(1);    }
-      50%       { opacity: 1;   transform: scale(1.55); }
-    }
-    @keyframes nodePulseLg {
-      0%, 100% { opacity: 0.5;  transform: scale(1);    }
-      50%       { opacity: 1;   transform: scale(1.65); }
-    }
-    @keyframes nodePulseSm {
-      0%, 100% { opacity: 0.2;  transform: scale(1);    }
-      50%       { opacity: 0.7; transform: scale(1.5);  }
-    }
-
-    .pulse-node, .pulse-node-lg, .pulse-node-sm {
-      transform-box: fill-box;
-      transform-origin: center;
-    }
-    .pulse-node    { animation: nodePulse   3.8s ease-in-out infinite; }
-    .pulse-node-lg { animation: nodePulseLg 4.4s ease-in-out infinite; }
-    .pulse-node-sm { animation: nodePulseSm 5.1s ease-in-out infinite; }
-
-    /* Golden ratio stagger (φ = 0.618s) */
-    .pulse-node:nth-child(1)    { animation-delay: 0s;     }
-    .pulse-node:nth-child(2)    { animation-delay: 0.618s; }
-    .pulse-node:nth-child(3)    { animation-delay: 1.236s; }
-    .pulse-node:nth-child(4)    { animation-delay: 1.854s; }
-    .pulse-node:nth-child(5)    { animation-delay: 0.309s; }
-    .pulse-node:nth-child(6)    { animation-delay: 0.927s; }
-
-    .pulse-node-sm:nth-child(1) { animation-delay: 0.2s;   }
-    .pulse-node-sm:nth-child(2) { animation-delay: 0.818s; }
-    .pulse-node-sm:nth-child(3) { animation-delay: 1.436s; }
-    .pulse-node-sm:nth-child(4) { animation-delay: 2.054s; }
-    .pulse-node-sm:nth-child(5) { animation-delay: 0.509s; }
-    .pulse-node-sm:nth-child(6) { animation-delay: 1.127s; }
-    .pulse-node-sm:nth-child(7) { animation-delay: 1.745s; }
-    .pulse-node-sm:nth-child(8) { animation-delay: 0.363s; }
-
-    /* Flow line draw-in — opacity fades in alongside the stroke draw */
+    /* Flow line draw-in — CSS stroke-dashoffset (Safari-safe) */
     @keyframes drawLine {
-      0%   { stroke-dashoffset: 220; opacity: 0;   }
-      15%  { opacity: 0.6; }
-      100% { stroke-dashoffset: 0;   opacity: 0.85; }
+      from { stroke-dashoffset: 250; opacity: 0; }
+      to   { stroke-dashoffset: 0;   opacity: 1; }
     }
     .flow-line {
-      stroke-dasharray: 220;
-      stroke-dashoffset: 220;
-      animation: drawLine 3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      stroke-dasharray: 250;
+      stroke-dashoffset: 250;
+      opacity: 0;
+      animation: drawLine 2.8s cubic-bezier(0.4,0,0.2,1) forwards;
     }
-    .flow-line:nth-child(1) { animation-delay: 0.4s; }
-    .flow-line:nth-child(2) { animation-delay: 0.85s; }
-    .flow-line:nth-child(3) { animation-delay: 1.3s;  }
+    .flow-line:nth-child(1) { animation-delay: 0.5s; }
+    .flow-line:nth-child(2) { animation-delay: 0.9s; }
+    .flow-line:nth-child(3) { animation-delay: 1.3s; }
 
-    /* ── Content ──────────────────────────── */
+    /* ── Content ── */
     .content {
       width: 100%;
       max-width: 600px;
-      padding: 0 28px 56px;
+      padding: 4px 28px 56px;
       text-align: center;
     }
 
@@ -147,17 +78,16 @@
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--rust);
-      margin-bottom: 16px;
+      margin-bottom: 18px;
     }
 
     h1 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Instrument Serif', serif;
       font-size: clamp(2.2rem, 6.5vw, 3.8rem);
-      font-weight: 700;
-      line-height: 1.08;
+      font-weight: 400;
+      line-height: 1.1;
       color: var(--ink);
-      margin-bottom: 24px;
-      letter-spacing: -0.01em;
+      margin-bottom: 22px;
     }
 
     h1 em {
@@ -170,18 +100,18 @@
       font-weight: 400;
       line-height: 1.7;
       color: var(--ink);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
     .body-copy {
-      font-size: 0.83rem;
+      font-size: 0.84rem;
       font-weight: 300;
-      color: var(--warm-muted);
+      color: var(--muted);
       line-height: 1.85;
-      margin-bottom: 40px;
+      margin-bottom: 38px;
     }
 
-    /* ── Form ─────────────────────────────── */
+    /* ── Form ── */
     .form-wrap {
       display: flex;
       flex-direction: column;
@@ -196,18 +126,15 @@
       border: 1.5px solid var(--ink);
       border-radius: 2px;
       overflow: hidden;
-      transition: border-color 0.25s ease;
+      transition: border-color 0.25s;
     }
-
-    .email-row:focus-within {
-      border-color: var(--rust);
-    }
+    .email-row:focus-within { border-color: var(--rust); }
 
     input[type="email"] {
       flex: 1;
       padding: 14px 16px;
-      font-size: 0.83rem;
-      font-family: 'Inter', sans-serif;
+      font-size: 0.84rem;
+      font-family: 'DM Sans', sans-serif;
       font-weight: 300;
       border: none;
       outline: none;
@@ -215,14 +142,13 @@
       color: var(--ink);
       min-width: 0;
     }
-
-    input[type="email"]::placeholder { color: var(--warm-subtle); }
+    input[type="email"]::placeholder { color: var(--subtle); }
 
     button[type="submit"] {
       padding: 14px 18px;
       background: var(--ink);
       color: var(--cream);
-      font-family: 'Inter', sans-serif;
+      font-family: 'DM Sans', sans-serif;
       font-size: 0.78rem;
       font-weight: 500;
       letter-spacing: 0.06em;
@@ -230,39 +156,35 @@
       border: none;
       cursor: pointer;
       white-space: nowrap;
-      transition: background 0.25s ease;
+      transition: background 0.25s;
     }
-
     button[type="submit"]:hover { background: var(--rust); }
 
     .form-note {
       font-size: 0.68rem;
       font-weight: 300;
-      color: var(--warm-subtle);
-      letter-spacing: 0.03em;
+      color: var(--subtle);
     }
 
     .success-msg {
       display: none;
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Instrument Serif', serif;
       font-style: italic;
-      font-weight: 600;
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       color: var(--rust);
       padding: 20px 0;
       line-height: 1.5;
     }
 
     .social-proof {
-      margin-top: 30px;
+      margin-top: 28px;
       font-size: 0.72rem;
       font-weight: 300;
-      color: var(--warm-subtle);
+      color: var(--subtle);
       font-style: italic;
-      letter-spacing: 0.02em;
     }
 
-    /* ── What's inside ────────────────────── */
+    /* ── What's inside ── */
     .inside-section {
       width: 100%;
       max-width: 520px;
@@ -273,8 +195,8 @@
     .divider {
       width: 1px;
       height: 40px;
-      background: var(--warm-rule);
-      margin: 0 auto 32px;
+      background: var(--rule);
+      margin: 0 auto 30px;
     }
 
     .inside-label {
@@ -282,8 +204,8 @@
       font-weight: 500;
       letter-spacing: 0.25em;
       text-transform: uppercase;
-      color: var(--warm-muted);
-      margin-bottom: 22px;
+      color: var(--muted);
+      margin-bottom: 20px;
     }
 
     .inside-list {
@@ -298,16 +220,15 @@
       display: flex;
       align-items: flex-start;
       gap: 14px;
-      font-size: 0.84rem;
+      font-size: 0.85rem;
       font-weight: 300;
       line-height: 1.65;
-      color: var(--warm-muted);
+      color: var(--muted);
     }
 
     .inside-list li::before {
       content: "—";
       color: var(--rust);
-      font-weight: 300;
       flex-shrink: 0;
       margin-top: 1px;
       opacity: 0.7;
@@ -318,25 +239,21 @@
       color: var(--ink);
     }
 
-    /* ── Footer ───────────────────────────── */
+    /* ── Footer ── */
     footer {
       margin-top: auto;
       padding: 28px;
       font-size: 0.68rem;
       font-weight: 300;
-      color: var(--warm-subtle);
+      color: var(--subtle);
       text-align: center;
-      letter-spacing: 0.04em;
     }
-
-    footer a { color: var(--warm-subtle); text-decoration: none; }
+    footer a { color: var(--subtle); text-decoration: none; }
     footer a:hover { color: var(--rust); }
 
-    /* ── Mobile ───────────────────────────── */
     @media (max-width: 480px) {
       .email-row { max-width: 100%; }
-      button[type="submit"] { padding: 14px 14px; font-size: 0.74rem; }
-      h1 { line-height: 1.1; }
+      button[type="submit"] { padding: 14px 13px; font-size: 0.74rem; }
     }
   </style>
 </head>
@@ -344,133 +261,163 @@
 
   <!-- ── Illustration: The Edge of Everything ── -->
   <div class="illustration-wrap">
-    <svg viewBox="0 0 960 320" xmlns="http://www.w3.org/2000/svg" fill="none"
-         role="img" aria-label="A lone silhouette stands at the horizon where rolling hills dissolve into a constellation of data nodes.">
+    <svg viewBox="0 0 960 320" xmlns="http://www.w3.org/2000/svg"
+         role="img" aria-label="A lone silhouette stands at the horizon where rolling hills dissolve into a constellation of glowing data nodes.">
 
       <!-- Sky -->
       <rect width="960" height="320" fill="#FDFAF5"/>
 
-      <!-- Clouds — warmer, more visible -->
-      <ellipse cx="110" cy="55" rx="82" ry="28" fill="#EDD9BC" opacity="0.55"/>
-      <ellipse cx="155" cy="44" rx="58" ry="20" fill="#EDD9BC" opacity="0.65"/>
-      <ellipse cx="68"  cy="64" rx="44" ry="17" fill="#EDD9BC" opacity="0.45"/>
-      <ellipse cx="800" cy="42" rx="92" ry="30" fill="#EDD9BC" opacity="0.55"/>
-      <ellipse cx="848" cy="31" rx="62" ry="22" fill="#EDD9BC" opacity="0.65"/>
-      <ellipse cx="745" cy="53" rx="50" ry="19" fill="#EDD9BC" opacity="0.45"/>
-      <ellipse cx="470" cy="28" rx="72" ry="21" fill="#EDD9BC" opacity="0.35"/>
+      <!-- Clouds -->
+      <ellipse cx="112" cy="54" rx="80" ry="26" fill="#EDD9BC" opacity="0.5"/>
+      <ellipse cx="158" cy="43" rx="56" ry="19" fill="#EDD9BC" opacity="0.6"/>
+      <ellipse cx="70"  cy="63" rx="42" ry="16" fill="#EDD9BC" opacity="0.4"/>
+      <ellipse cx="802" cy="41" rx="90" ry="28" fill="#EDD9BC" opacity="0.5"/>
+      <ellipse cx="850" cy="30" rx="60" ry="20" fill="#EDD9BC" opacity="0.6"/>
+      <ellipse cx="747" cy="52" rx="48" ry="18" fill="#EDD9BC" opacity="0.4"/>
+      <ellipse cx="472" cy="27" rx="68" ry="19" fill="#EDD9BC" opacity="0.32"/>
 
-      <!-- Hills — fixed: visible sage greens, strong opacity -->
-      <!-- Far hill (lightest) -->
-      <path d="M0,255 Q70,195 170,222 Q275,252 365,228 Q435,208 490,238 L490,320 L0,320 Z"
-            fill="#BDD4A8" opacity="0.82"/>
+      <!-- ── Hills — solid, visible ── -->
+      <!-- Far hill -->
+      <path d="M0,250 Q80,188 185,216 Q288,246 372,224 Q440,205 492,235 L492,322 L0,322 Z"
+            fill="#B8D49E"/>
       <!-- Mid hill -->
-      <path d="M0,278 Q95,242 205,262 Q315,282 395,258 Q450,242 490,260 L490,320 L0,320 Z"
-            fill="#96BC80" opacity="0.90"/>
-      <!-- Foreground hill (darkest) -->
-      <path d="M0,300 Q180,285 380,295 L490,295 L490,320 L0,320 Z"
-            fill="#72A05E" opacity="0.88"/>
+      <path d="M0,274 Q98,238 210,258 Q318,278 400,254 Q452,238 492,258 L492,322 L0,322 Z"
+            fill="#8EBA72"/>
+      <!-- Foreground -->
+      <path d="M0,298 Q185,282 385,292 L492,292 L492,322 L0,322 Z"
+            fill="#6BA050"/>
 
-      <!-- Hill ink outlines — visible but gentle -->
-      <path d="M0,278 Q95,242 205,262 Q315,282 395,258 Q450,242 490,260"
-            stroke="#1A1A1A" stroke-width="1.2" opacity="0.28" fill="none"/>
-      <path d="M0,255 Q70,195 170,222 Q275,252 365,228 Q435,208 490,238"
-            stroke="#1A1A1A" stroke-width="1.0" opacity="0.20" fill="none"/>
+      <!-- Hill ink outlines -->
+      <path d="M0,274 Q98,238 210,258 Q318,278 400,254 Q452,238 492,258"
+            stroke="#1A1A1A" stroke-width="1.3" opacity="0.25" fill="none"/>
+      <path d="M0,250 Q80,188 185,216 Q288,246 372,224 Q440,205 492,235"
+            stroke="#1A1A1A" stroke-width="1.0" opacity="0.18" fill="none"/>
 
-      <!-- Horizon dashed line — more visible -->
-      <line x1="0" y1="238" x2="960" y2="238"
-            stroke="#1A1A1A" stroke-width="0.8" opacity="0.12" stroke-dasharray="4,8"/>
+      <!-- Horizon line -->
+      <line x1="0" y1="235" x2="960" y2="235"
+            stroke="#1A1A1A" stroke-width="0.8" opacity="0.10" stroke-dasharray="4,8"/>
 
-      <!-- Geometric grid (right side) — bumped opacity -->
-      <line x1="560" y1="238" x2="960" y2="238" stroke="#C4603A" stroke-width="0.6" opacity="0.22"/>
-      <line x1="590" y1="252" x2="960" y2="252" stroke="#C4603A" stroke-width="0.6" opacity="0.18"/>
-      <line x1="615" y1="265" x2="960" y2="265" stroke="#C4603A" stroke-width="0.5" opacity="0.15"/>
-      <line x1="640" y1="278" x2="960" y2="278" stroke="#C4603A" stroke-width="0.5" opacity="0.12"/>
-      <line x1="650" y1="238" x2="650" y2="295" stroke="#C4603A" stroke-width="0.5" opacity="0.18"/>
-      <line x1="730" y1="238" x2="730" y2="300" stroke="#C4603A" stroke-width="0.5" opacity="0.16"/>
-      <line x1="820" y1="238" x2="820" y2="305" stroke="#C4603A" stroke-width="0.5" opacity="0.14"/>
-      <line x1="900" y1="238" x2="900" y2="310" stroke="#C4603A" stroke-width="0.5" opacity="0.12"/>
+      <!-- Geometric grid (right half) -->
+      <line x1="555" y1="235" x2="960" y2="235" stroke="#C4603A" stroke-width="0.7" opacity="0.25"/>
+      <line x1="585" y1="250" x2="960" y2="250" stroke="#C4603A" stroke-width="0.6" opacity="0.20"/>
+      <line x1="612" y1="263" x2="960" y2="263" stroke="#C4603A" stroke-width="0.5" opacity="0.16"/>
+      <line x1="638" y1="276" x2="960" y2="276" stroke="#C4603A" stroke-width="0.5" opacity="0.13"/>
+      <line x1="648" y1="235" x2="648" y2="292" stroke="#C4603A" stroke-width="0.5" opacity="0.20"/>
+      <line x1="728" y1="235" x2="728" y2="298" stroke="#C4603A" stroke-width="0.5" opacity="0.17"/>
+      <line x1="818" y1="235" x2="818" y2="304" stroke="#C4603A" stroke-width="0.5" opacity="0.14"/>
+      <line x1="902" y1="235" x2="902" y2="310" stroke="#C4603A" stroke-width="0.5" opacity="0.12"/>
 
-      <!-- Flow lines — draw-in animation -->
-      <g>
-        <path class="flow-line" d="M502,225 Q545,221 592,228 Q645,235 688,228"
-              stroke="#C4603A" stroke-width="1.1" fill="none" stroke-linecap="round"/>
-        <path class="flow-line" d="M504,233 Q550,230 600,237 Q658,244 705,238"
-              stroke="#C4603A" stroke-width="0.8" fill="none" stroke-linecap="round"/>
-        <path class="flow-line" d="M500,218 Q540,214 578,217 Q618,220 652,215"
-              stroke="#C4603A" stroke-width="0.7" fill="none" stroke-linecap="round"/>
+      <!-- ── Flow lines — CSS draw-in animation ── -->
+      <g fill="none" stroke="#C4603A" stroke-linecap="round">
+        <path class="flow-line" d="M504,222 Q548,218 596,225 Q648,232 692,225" stroke-width="1.2"/>
+        <path class="flow-line" d="M506,231 Q554,228 604,235 Q662,242 710,236" stroke-width="0.8"/>
+        <path class="flow-line" d="M502,215 Q542,211 580,214 Q620,217 655,212" stroke-width="0.7"/>
       </g>
 
-      <!-- Constellation nodes — primary (larger, φ-pulsed) -->
-      <g fill="#C4603A">
-        <circle class="pulse-node" cx="690" cy="192" r="3.8"/>
-        <circle class="pulse-node" cx="748" cy="168" r="4.2"/>
-        <circle class="pulse-node" cx="800" cy="185" r="3.8"/>
-        <circle class="pulse-node" cx="855" cy="162" r="3.8"/>
-        <circle class="pulse-node" cx="912" cy="178" r="3.8"/>
-        <circle class="pulse-node" cx="760" cy="215" r="3.8"/>
+      <!-- ── Constellation — SMIL animations (Safari-native) ── -->
+
+      <!-- Primary nodes -->
+      <circle cx="692" cy="190" r="4" fill="#C4603A">
+        <animate attributeName="opacity" values="0.4;1;0.4" dur="3.8s" repeatCount="indefinite" begin="0s"/>
+        <animate attributeName="r"       values="4;6;4"     dur="3.8s" repeatCount="indefinite" begin="0s"/>
+      </circle>
+      <circle cx="750" cy="166" r="4.5" fill="#C4603A">
+        <animate attributeName="opacity" values="0.4;1;0.4" dur="3.8s" repeatCount="indefinite" begin="0.618s"/>
+        <animate attributeName="r"       values="4.5;6.5;4.5" dur="3.8s" repeatCount="indefinite" begin="0.618s"/>
+      </circle>
+      <circle cx="802" cy="183" r="4" fill="#C4603A">
+        <animate attributeName="opacity" values="0.4;1;0.4" dur="3.8s" repeatCount="indefinite" begin="1.236s"/>
+        <animate attributeName="r"       values="4;6;4"     dur="3.8s" repeatCount="indefinite" begin="1.236s"/>
+      </circle>
+      <circle cx="857" cy="160" r="4" fill="#C4603A">
+        <animate attributeName="opacity" values="0.4;1;0.4" dur="3.8s" repeatCount="indefinite" begin="1.854s"/>
+        <animate attributeName="r"       values="4;6;4"     dur="3.8s" repeatCount="indefinite" begin="1.854s"/>
+      </circle>
+      <circle cx="914" cy="176" r="4" fill="#C4603A">
+        <animate attributeName="opacity" values="0.4;1;0.4" dur="3.8s" repeatCount="indefinite" begin="0.309s"/>
+        <animate attributeName="r"       values="4;6;4"     dur="3.8s" repeatCount="indefinite" begin="0.309s"/>
+      </circle>
+      <circle cx="762" cy="213" r="4" fill="#C4603A">
+        <animate attributeName="opacity" values="0.4;1;0.4" dur="3.8s" repeatCount="indefinite" begin="0.927s"/>
+        <animate attributeName="r"       values="4;6;4"     dur="3.8s" repeatCount="indefinite" begin="0.927s"/>
+      </circle>
+
+      <!-- Secondary nodes -->
+      <circle cx="667" cy="170" r="2.5" fill="#C4603A" opacity="0.35">
+        <animate attributeName="opacity" values="0.2;0.65;0.2" dur="5s" repeatCount="indefinite" begin="0.2s"/>
+      </circle>
+      <circle cx="724" cy="146" r="2.5" fill="#C4603A" opacity="0.35">
+        <animate attributeName="opacity" values="0.2;0.65;0.2" dur="5s" repeatCount="indefinite" begin="0.82s"/>
+      </circle>
+      <circle cx="780" cy="203" r="2.5" fill="#C4603A" opacity="0.35">
+        <animate attributeName="opacity" values="0.2;0.65;0.2" dur="5s" repeatCount="indefinite" begin="1.44s"/>
+      </circle>
+      <circle cx="830" cy="196" r="2.5" fill="#C4603A" opacity="0.35">
+        <animate attributeName="opacity" values="0.2;0.65;0.2" dur="5s" repeatCount="indefinite" begin="0.51s"/>
+      </circle>
+      <circle cx="882" cy="180" r="2.5" fill="#C4603A" opacity="0.35">
+        <animate attributeName="opacity" values="0.2;0.65;0.2" dur="5s" repeatCount="indefinite" begin="1.13s"/>
+      </circle>
+      <circle cx="937" cy="160" r="2.5" fill="#C4603A" opacity="0.35">
+        <animate attributeName="opacity" values="0.2;0.65;0.2" dur="5s" repeatCount="indefinite" begin="2.06s"/>
+      </circle>
+      <circle cx="707" cy="208" r="2.5" fill="#C4603A" opacity="0.35">
+        <animate attributeName="opacity" values="0.2;0.65;0.2" dur="5s" repeatCount="indefinite" begin="0.36s"/>
+      </circle>
+      <circle cx="842" cy="146" r="2.5" fill="#C4603A" opacity="0.35">
+        <animate attributeName="opacity" values="0.2;0.65;0.2" dur="5s" repeatCount="indefinite" begin="1.68s"/>
+      </circle>
+
+      <!-- Constellation connecting lines -->
+      <g stroke="#C4603A" stroke-width="0.9" opacity="0.28" fill="none">
+        <line x1="667" y1="170" x2="692" y2="190"/>
+        <line x1="692" y1="190" x2="724" y2="146"/>
+        <line x1="724" y1="146" x2="750" y2="166"/>
+        <line x1="750" y1="166" x2="780" y2="203"/>
+        <line x1="750" y1="166" x2="802" y2="183"/>
+        <line x1="802" y1="183" x2="830" y2="196"/>
+        <line x1="802" y1="183" x2="842" y2="146"/>
+        <line x1="842" y1="146" x2="857" y2="160"/>
+        <line x1="857" y1="160" x2="882" y2="180"/>
+        <line x1="882" y1="180" x2="914" y2="176"/>
+        <line x1="914" y1="176" x2="937" y2="160"/>
+        <line x1="692" y1="190" x2="707" y2="208"/>
+        <line x1="707" y1="208" x2="762" y2="213"/>
+        <line x1="762" y1="213" x2="780" y2="203"/>
+        <line x1="780" y1="203" x2="830" y2="196"/>
+        <line x1="830" y1="196" x2="882" y2="180"/>
       </g>
 
-      <!-- Constellation nodes — secondary (smaller, slower) -->
-      <g fill="#C4603A">
-        <circle class="pulse-node-sm" cx="665" cy="172" r="2.5"/>
-        <circle class="pulse-node-sm" cx="722" cy="148" r="2.5"/>
-        <circle class="pulse-node-sm" cx="778" cy="205" r="2.5"/>
-        <circle class="pulse-node-sm" cx="828" cy="198" r="2.5"/>
-        <circle class="pulse-node-sm" cx="880" cy="182" r="2.5"/>
-        <circle class="pulse-node-sm" cx="935" cy="162" r="2.5"/>
-        <circle class="pulse-node-sm" cx="705" cy="210" r="2.5"/>
-        <circle class="pulse-node-sm" cx="840" cy="148" r="2.5"/>
-      </g>
-
-      <!-- Constellation lines — bumped opacity, more visible -->
-      <g stroke="#C4603A" stroke-width="0.8" opacity="0.30" fill="none">
-        <line x1="665" y1="172" x2="690" y2="192"/>
-        <line x1="690" y1="192" x2="722" y2="148"/>
-        <line x1="722" y1="148" x2="748" y2="168"/>
-        <line x1="748" y1="168" x2="778" y2="205"/>
-        <line x1="748" y1="168" x2="800" y2="185"/>
-        <line x1="800" y1="185" x2="828" y2="198"/>
-        <line x1="800" y1="185" x2="840" y2="148"/>
-        <line x1="840" y1="148" x2="855" y2="162"/>
-        <line x1="855" y1="162" x2="880" y2="182"/>
-        <line x1="880" y1="182" x2="912" y2="178"/>
-        <line x1="912" y1="178" x2="935" y2="162"/>
-        <line x1="690" y1="192" x2="705" y2="210"/>
-        <line x1="705" y1="210" x2="760" y2="215"/>
-        <line x1="760" y1="215" x2="778" y2="205"/>
-        <line x1="778" y1="205" x2="828" y2="198"/>
-        <line x1="828" y1="198" x2="880" y2="182"/>
-      </g>
-
-      <!-- Silhouette figure — at the threshold, looking right toward the constellation -->
-      <g transform="translate(480, 195)">
-        <!-- Atmospheric halo rings -->
-        <circle cx="0" cy="28" r="40" stroke="#C4603A" stroke-width="0.9"
-                opacity="0.18" stroke-dasharray="2,6"/>
-        <circle cx="0" cy="28" r="60" stroke="#C4603A" stroke-width="0.6"
-                opacity="0.10" stroke-dasharray="1,8"/>
-        <!-- Ground shadow — grounding the figure -->
-        <ellipse cx="2" cy="80" rx="11" ry="3.5" fill="#1A1A1A" opacity="0.22"/>
+      <!-- ── Silhouette figure ── -->
+      <g transform="translate(482,192)">
+        <!-- Atmospheric rings -->
+        <circle cx="0" cy="30" r="42" stroke="#C4603A" stroke-width="0.9"
+                fill="none" opacity="0.16" stroke-dasharray="2,6"/>
+        <circle cx="0" cy="30" r="62" stroke="#C4603A" stroke-width="0.6"
+                fill="none" opacity="0.09" stroke-dasharray="1,8"/>
+        <!-- Shadow -->
+        <ellipse cx="2" cy="82" rx="12" ry="3.5" fill="#1A1A1A" opacity="0.20"/>
         <!-- Legs -->
-        <path d="M-4,56 L-7,80"  stroke="#1A1A1A" stroke-width="5.5" stroke-linecap="round"/>
-        <path d="M4,56  L8,80"   stroke="#1A1A1A" stroke-width="5.5" stroke-linecap="round"/>
+        <line x1="-4" y1="58" x2="-7" y2="82" stroke="#1A1A1A" stroke-width="6" stroke-linecap="round"/>
+        <line x1="4"  y1="58" x2="9"  y2="82" stroke="#1A1A1A" stroke-width="6" stroke-linecap="round"/>
         <!-- Torso -->
-        <rect x="-7" y="22" width="14" height="36" rx="3" fill="#1A1A1A"/>
-        <!-- Arms: left hangs, right reaches slightly forward -->
-        <path d="M-7,32 Q-22,38 -28,36"  stroke="#1A1A1A" stroke-width="5" stroke-linecap="round"/>
-        <path d="M7,30  Q22,22  32,17"   stroke="#1A1A1A" stroke-width="5" stroke-linecap="round"/>
+        <rect x="-8" y="22" width="16" height="38" rx="4" fill="#1A1A1A"/>
+        <!-- Left arm — relaxed -->
+        <path d="M-8,33 Q-24,39 -30,37" stroke="#1A1A1A" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+        <!-- Right arm — reaching toward constellation -->
+        <path d="M8,30 Q24,22 34,16"    stroke="#1A1A1A" stroke-width="5.5" fill="none" stroke-linecap="round"/>
         <!-- Head -->
-        <circle cx="0" cy="12" r="10" fill="#1A1A1A"/>
+        <circle cx="0" cy="12" r="11" fill="#1A1A1A"/>
       </g>
 
-      <!-- Bottom fade — starts lower so hills remain visible -->
+      <!-- Very subtle bottom fade -->
       <defs>
         <linearGradient id="fadeOut" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%"   stop-color="#FDFAF5" stop-opacity="0"/>
           <stop offset="100%" stop-color="#FDFAF5" stop-opacity="1"/>
         </linearGradient>
       </defs>
-      <rect x="0" y="288" width="960" height="32" fill="url(#fadeOut)"/>
+      <rect x="0" y="295" width="960" height="25" fill="url(#fadeOut)"/>
 
     </svg>
   </div>
@@ -534,7 +481,6 @@
     const form    = document.getElementById('waitlistForm');
     const success = document.getElementById('successMsg');
     const emailIn = document.getElementById('emailInput');
-
     form.addEventListener('submit', function(e) {
       e.preventDefault();
       if (!emailIn.value || !emailIn.validity.valid) return;
