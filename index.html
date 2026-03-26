@@ -64,6 +64,16 @@
     .flow-line:nth-child(2) { animation-delay: 0.9s; }
     .flow-line:nth-child(3) { animation-delay: 1.3s; }
 
+    /* Figure slow drift */
+    @keyframes figuredrift {
+      0%   { transform: translate(482px, 192px); }
+      50%  { transform: translate(482px, 187px); }
+      100% { transform: translate(482px, 192px); }
+    }
+    .figure-group {
+      animation: figuredrift 6s ease-in-out infinite;
+    }
+
     /* ── Content ── */
     .content {
       width: 100%;
@@ -89,6 +99,8 @@
       color: var(--ink);
       margin-bottom: 22px;
     }
+
+    h1 span { display: block; }
 
     h1 em {
       font-style: italic;
@@ -316,30 +328,30 @@
 
       <!-- ── Constellation — SMIL animations (Safari-native) ── -->
 
-      <!-- Primary nodes -->
-      <circle cx="692" cy="190" r="4" fill="#C4603A">
-        <animate attributeName="opacity" values="0.4;1;0.4" dur="3.8s" repeatCount="indefinite" begin="0s"/>
-        <animate attributeName="r"       values="4;6;4"     dur="3.8s" repeatCount="indefinite" begin="0s"/>
+      <!-- Primary nodes — with glow filter -->
+      <circle cx="692" cy="190" r="4" fill="#C4603A" filter="url(#glow)">
+        <animate attributeName="opacity" values="0.5;1;0.5" dur="3.8s" repeatCount="indefinite" begin="0s"/>
+        <animate attributeName="r"       values="4;6.5;4"   dur="3.8s" repeatCount="indefinite" begin="0s"/>
       </circle>
-      <circle cx="750" cy="166" r="4.5" fill="#C4603A">
-        <animate attributeName="opacity" values="0.4;1;0.4" dur="3.8s" repeatCount="indefinite" begin="0.618s"/>
-        <animate attributeName="r"       values="4.5;6.5;4.5" dur="3.8s" repeatCount="indefinite" begin="0.618s"/>
+      <circle cx="750" cy="166" r="4.5" fill="#C4603A" filter="url(#glow)">
+        <animate attributeName="opacity" values="0.5;1;0.5"     dur="3.8s" repeatCount="indefinite" begin="0.618s"/>
+        <animate attributeName="r"       values="4.5;7;4.5"     dur="3.8s" repeatCount="indefinite" begin="0.618s"/>
       </circle>
-      <circle cx="802" cy="183" r="4" fill="#C4603A">
-        <animate attributeName="opacity" values="0.4;1;0.4" dur="3.8s" repeatCount="indefinite" begin="1.236s"/>
-        <animate attributeName="r"       values="4;6;4"     dur="3.8s" repeatCount="indefinite" begin="1.236s"/>
+      <circle cx="802" cy="183" r="4" fill="#C4603A" filter="url(#glow)">
+        <animate attributeName="opacity" values="0.5;1;0.5" dur="3.8s" repeatCount="indefinite" begin="1.236s"/>
+        <animate attributeName="r"       values="4;6.5;4"   dur="3.8s" repeatCount="indefinite" begin="1.236s"/>
       </circle>
-      <circle cx="857" cy="160" r="4" fill="#C4603A">
-        <animate attributeName="opacity" values="0.4;1;0.4" dur="3.8s" repeatCount="indefinite" begin="1.854s"/>
-        <animate attributeName="r"       values="4;6;4"     dur="3.8s" repeatCount="indefinite" begin="1.854s"/>
+      <circle cx="857" cy="160" r="4" fill="#C4603A" filter="url(#glow)">
+        <animate attributeName="opacity" values="0.5;1;0.5" dur="3.8s" repeatCount="indefinite" begin="1.854s"/>
+        <animate attributeName="r"       values="4;6.5;4"   dur="3.8s" repeatCount="indefinite" begin="1.854s"/>
       </circle>
-      <circle cx="914" cy="176" r="4" fill="#C4603A">
-        <animate attributeName="opacity" values="0.4;1;0.4" dur="3.8s" repeatCount="indefinite" begin="0.309s"/>
-        <animate attributeName="r"       values="4;6;4"     dur="3.8s" repeatCount="indefinite" begin="0.309s"/>
+      <circle cx="914" cy="176" r="4" fill="#C4603A" filter="url(#glow)">
+        <animate attributeName="opacity" values="0.5;1;0.5" dur="3.8s" repeatCount="indefinite" begin="0.309s"/>
+        <animate attributeName="r"       values="4;6.5;4"   dur="3.8s" repeatCount="indefinite" begin="0.309s"/>
       </circle>
-      <circle cx="762" cy="213" r="4" fill="#C4603A">
-        <animate attributeName="opacity" values="0.4;1;0.4" dur="3.8s" repeatCount="indefinite" begin="0.927s"/>
-        <animate attributeName="r"       values="4;6;4"     dur="3.8s" repeatCount="indefinite" begin="0.927s"/>
+      <circle cx="762" cy="213" r="4" fill="#C4603A" filter="url(#glow)">
+        <animate attributeName="opacity" values="0.5;1;0.5" dur="3.8s" repeatCount="indefinite" begin="0.927s"/>
+        <animate attributeName="r"       values="4;6.5;4"   dur="3.8s" repeatCount="indefinite" begin="0.927s"/>
       </circle>
 
       <!-- Secondary nodes -->
@@ -388,13 +400,19 @@
         <line x1="830" y1="196" x2="882" y2="180"/>
       </g>
 
-      <!-- ── Silhouette figure ── -->
-      <g transform="translate(482,192)">
-        <!-- Atmospheric rings -->
+      <!-- ── Silhouette figure — with drift animation ── -->
+      <g class="figure-group">
+        <!-- Atmospheric rings — pulsing -->
         <circle cx="0" cy="30" r="42" stroke="#C4603A" stroke-width="0.9"
-                fill="none" opacity="0.16" stroke-dasharray="2,6"/>
+                fill="none" stroke-dasharray="2,6">
+          <animate attributeName="opacity" values="0.14;0.30;0.14" dur="5s" repeatCount="indefinite" begin="0s"/>
+          <animate attributeName="r"       values="42;48;42"       dur="5s" repeatCount="indefinite" begin="0s"/>
+        </circle>
         <circle cx="0" cy="30" r="62" stroke="#C4603A" stroke-width="0.6"
-                fill="none" opacity="0.09" stroke-dasharray="1,8"/>
+                fill="none" stroke-dasharray="1,8">
+          <animate attributeName="opacity" values="0.07;0.18;0.07" dur="5s" repeatCount="indefinite" begin="0.5s"/>
+          <animate attributeName="r"       values="62;70;62"       dur="5s" repeatCount="indefinite" begin="0.5s"/>
+        </circle>
         <!-- Shadow -->
         <ellipse cx="2" cy="82" rx="12" ry="3.5" fill="#1A1A1A" opacity="0.20"/>
         <!-- Legs -->
@@ -404,18 +422,35 @@
         <rect x="-8" y="22" width="16" height="38" rx="4" fill="#1A1A1A"/>
         <!-- Left arm — relaxed -->
         <path d="M-8,33 Q-24,39 -30,37" stroke="#1A1A1A" stroke-width="5.5" fill="none" stroke-linecap="round"/>
-        <!-- Right arm — reaching toward constellation -->
-        <path d="M8,30 Q24,22 34,16"    stroke="#1A1A1A" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+        <!-- Right arm — reaching, subtle pulse -->
+        <path d="M8,30 Q24,22 34,16" stroke="#1A1A1A" stroke-width="5.5" fill="none" stroke-linecap="round">
+          <animate attributeName="opacity" values="1;0.65;1" dur="3.8s" repeatCount="indefinite" begin="0s"/>
+        </path>
         <!-- Head -->
         <circle cx="0" cy="12" r="11" fill="#1A1A1A"/>
+        <!-- Fingertip dot — bridges figure to constellation -->
+        <circle cx="34" cy="16" r="2.5" fill="#C4603A" filter="url(#glow)">
+          <animate attributeName="opacity" values="0.5;1;0.5" dur="3.8s" repeatCount="indefinite" begin="0s"/>
+          <animate attributeName="r"       values="2.5;4;2.5" dur="3.8s" repeatCount="indefinite" begin="0s"/>
+        </circle>
       </g>
 
-      <!-- Very subtle bottom fade -->
+      <!-- Filters + bottom fade -->
       <defs>
         <linearGradient id="fadeOut" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%"   stop-color="#FDFAF5" stop-opacity="0"/>
           <stop offset="100%" stop-color="#FDFAF5" stop-opacity="1"/>
         </linearGradient>
+        <!-- Soft glow for constellation nodes -->
+        <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+          <feGaussianBlur stdDeviation="3.5" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <!-- Subtle glow for figure -->
+        <filter id="figureGlow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="2" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
       </defs>
       <rect x="0" y="295" width="960" height="25" fill="url(#fadeOut)"/>
 
@@ -428,23 +463,23 @@
     <p class="eyebrow">Coming soon &nbsp;·&nbsp; Free to join</p>
 
     <h1>
-      AI won't replace you.<br>
+      <span>AI won't replace you.</span>
       <em>But someone who uses it might.</em>
     </h1>
 
     <p class="subhead">
-      Still Relevant is the human's guide to thriving alongside AI — not against it.
+      Still Relevant is your guide to thriving alongside AI — not competing with it.
     </p>
 
     <p class="body-copy">
-      A practical ebook + toolkit for working professionals who refuse to be left behind.<br>
+      A practical ebook + toolkit for professionals who refuse to be left behind.<br>
       No hype. No jargon. Just the playbook.
     </p>
 
     <form class="form-wrap" id="waitlistForm" action="#" method="post" novalidate>
       <div class="email-row">
         <input type="email" id="emailInput" name="email"
-               placeholder="your work email" required autocomplete="email"/>
+               placeholder="your email" required autocomplete="email"/>
         <button type="submit">I'm in →</button>
       </div>
       <p class="form-note">Free to join. No spam. Ever.</p>
@@ -465,10 +500,10 @@
     <div class="divider"></div>
     <p class="inside-label">What you'll get</p>
     <ul class="inside-list">
-      <li>A practical guide to understanding where AI actually helps vs. hype — and how to use it</li>
-      <li>The human skills that become <em>more valuable</em> as AI handles the rest</li>
-      <li>A ready-to-use toolkit: prompts, frameworks, and workflows built for your actual job</li>
-      <li>Confidence — not because you became a tech person, but because you know your edge</li>
+      <li>Where AI actually helps — and where the hype ends</li>
+      <li>The human skills that become <em>more valuable</em> as AI takes over the rest</li>
+      <li>Prompts, frameworks, and workflows built for your actual job</li>
+      <li>How to know your edge — and make sure others do too</li>
     </ul>
   </section>
 
