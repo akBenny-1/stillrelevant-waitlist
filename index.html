@@ -575,12 +575,39 @@
     const form    = document.getElementById('waitlistForm');
     const success = document.getElementById('successMsg');
     const emailIn = document.getElementById('emailInput');
-    form.addEventListener('submit', function(e) {
+    const btn     = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', async function(e) {
       e.preventDefault();
       if (!emailIn.value || !emailIn.validity.valid) return;
-      // TODO: wire to ConvertKit / Mailchimp
-      form.style.display    = 'none';
-      success.style.display = 'block';
+
+      btn.disabled    = true;
+      btn.textContent = '…';
+
+      try {
+        const res = await fetch(
+          'https://api.convertkit.com/v3/tags/18238910/subscribe',
+          {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              api_key: 'irFcq7qC6uiaDJQPswwz7g',
+              email:   emailIn.value.trim()
+            })
+          }
+        );
+
+        if (!res.ok) throw new Error('Request failed');
+
+        form.style.display    = 'none';
+        success.style.display = 'block';
+      } catch (err) {
+        btn.disabled    = false;
+        btn.textContent = 'I\'m in →';
+        const note = form.querySelector('.form-note');
+        note.style.color = '#C4603A';
+        note.textContent = 'Something went wrong — please try again.';
+      }
     });
   </script>
 
