@@ -65,11 +65,11 @@
     .flow-line:nth-child(2) { animation-delay: 0.9s; }
     .flow-line:nth-child(3) { animation-delay: 1.3s; }
 
-    /* Figure slow drift */
+    /* Figure slow drift — offset only, base position set via SVG translate */
     @keyframes figuredrift {
-      0%   { transform: translate(482px, 192px); }
-      50%  { transform: translate(482px, 187px); }
-      100% { transform: translate(482px, 192px); }
+      0%   { transform: translateY(0px); }
+      50%  { transform: translateY(-5px); }
+      100% { transform: translateY(0px); }
     }
     .figure-group {
       animation: figuredrift 6s ease-in-out infinite;
@@ -448,6 +448,8 @@
       </g>
 
       <!-- ── Silhouette figure — with drift animation ── -->
+      <!-- Base position via SVG attribute (Safari-safe); CSS handles drift only -->
+      <g transform="translate(482, 192)">
       <g class="figure-group">
         <!-- Atmospheric rings — pulsing -->
         <circle cx="0" cy="30" r="42" stroke="#C4603A" stroke-width="0.9"
@@ -480,7 +482,8 @@
           <animate attributeName="opacity" values="0.5;1;0.5" dur="3.8s" repeatCount="indefinite" begin="0s"/>
           <animate attributeName="r"       values="2.5;4;2.5" dur="3.8s" repeatCount="indefinite" begin="0s"/>
         </circle>
-      </g>
+      </g><!-- end .figure-group -->
+      </g><!-- end base-position translate wrapper -->
 
       <!-- Filters + bottom fade -->
       <defs>
